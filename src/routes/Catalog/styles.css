@@ -1,0 +1,29 @@
+#catalog-section {
+  padding: 20px 0;
+}
+
+.dsc-catalog-cards{
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+}
+
+/*
+.dsc-catalog-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .dsc-catalog-cards {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .dsc-catalog-cards > * {
+    flex: 1 1 225px; cresce, encolhe e começa com 225px
+    max-width: 225px;
+  }
+}
+*/
