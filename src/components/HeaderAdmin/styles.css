@@ -1,0 +1,17 @@
+.dsc-product-listing-image{
+  width: 69px;
+  height: 69px;
+  display: block;
+}
+
+.dsc-product-listing-btn{
+  height: 20px;
+  width: auto;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.dsc-header-admin {
+  background-color: var(--dsc-color-bg-quaternary);
+  color: var(--dsc-color-font-tertiary);
+}
