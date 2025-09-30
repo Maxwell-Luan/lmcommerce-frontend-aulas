@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import QueryString from "qs";
-import type { CredentialsDTO } from "../models/auth";
+import type { AccessTokenPayloadDTO, CredentialsDTO } from "../models/auth";
 import { CLIENT_ID, CLIENT_SECRET } from "../utils/system";
 import type { AxiosRequestConfig } from "axios";
 import { requestBackend } from "../utils/requests";
-import * as accesTokenRepository from "../localStorage/access-token-repository";
+import * as accessTokenRepository from "../localStorage/access-token-repository";
+import jwtDecode from "jwt-decode";
 
 export function loginRequest(loginData: CredentialsDTO) {
   const headers = {
@@ -27,13 +29,33 @@ export function loginRequest(loginData: CredentialsDTO) {
 }
 
 export function logout() {
-  accesTokenRepository.remove();
+  accessTokenRepository.remove();
 }
 
-export function saveAccessToken(token : string){
-  accesTokenRepository.save(token);
+export function saveAccessToken(token: string) {
+  accessTokenRepository.save(token);
 }
 
-export function getAccessToken(){
-  return accesTokenRepository.get();
+export function getAccessToken() {
+  return accessTokenRepository.get();
+}
+
+export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
+  try {
+    const token = accessTokenRepository.get();
+    return token == null
+      ? undefined
+      : (jwtDecode(token) as AccessTokenPayloadDTO);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+export function isAuthenticated(): boolean {
+  const tokenPayload = getAccessTokenPayload();
+  if (tokenPayload && tokenPayload.exp * 1000 > Date.now()) {
+    return true;
+  } else {
+    return false;
+  }
 }
