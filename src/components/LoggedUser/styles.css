@@ -1,0 +1,19 @@
+.dsc-logged-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.dsc-logged-user p {
+  font-size: 12px;
+}
+
+.dsc-logged-user a{
+  font-weight: bold;
+}
+
+.dsc-logged-user span{
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
