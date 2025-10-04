@@ -23,8 +23,8 @@ export default function App() {
     useState<AccessTokenPayloadDTO>();
 
   useEffect(() => {
-    setContextCartCount(cartService.getCart().items.length)
-    
+    setContextCartCount(cartService.getCart().items.length);
+
     if (authService.isAuthenticated()) {
       const payload = authService.getAccessTokenPayload();
       setContextTokenPayload(payload);
@@ -32,7 +32,9 @@ export default function App() {
   }, []);
 
   return (
-    <ContextToken.Provider value={{ contextTokenPayload, setContextTokenPayload }}>
+    <ContextToken.Provider
+      value={{ contextTokenPayload, setContextTokenPayload }}
+    >
       <ContextCartCount.Provider
         value={{ contextCartCount, setContextCartCount }}
       >
@@ -49,12 +51,21 @@ export default function App() {
               <Route path="login" element={<Login />} />
               <Route
                 path="confirmation/:orderId"
-                element={<Confirmation />}
+                element={
+                  <PrivateRoute>
+                    <Confirmation />
+                  </PrivateRoute>
+                }
               />
             </Route>
-            <Route path="/admin" element={<PrivateRoute roles={["ROLE_ADMIN"]}>
-              <Admin />
-              </PrivateRoute>}>
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute roles={["ROLE_ADMIN"]}>
+                  <Admin />
+                </PrivateRoute>
+              }
+            >
               <Route index element={<AdminHome />}></Route>
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
