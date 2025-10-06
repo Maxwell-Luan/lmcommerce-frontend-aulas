@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "./styles.css";
+
+import { useEffect, useState } from "react";
+
+import type { ProductDTO } from "../../../models/product";
+import type { QueryParams } from "../../../models/queryParams";
+
 import SearchBar from "../../../components/SearchBar";
 import CatalogCard from "../../../components/CatalogCard";
 import ButtonNextPage from "../../../components/ButtonNextPage";
-import { useEffect, useState } from "react";
-import type { ProductDTO } from "../../../models/product";
-import * as productService from "../../../services/product-service";
 
-type QueryParams = {
-  page: number;
-  name: string;
-};
+import * as productService from "../../../services/product-service";
 
 export default function Catalog() {
   const [isLastPage, setIsLastPage] = useState(false);
@@ -20,6 +20,7 @@ export default function Catalog() {
     page: 0,
     name: "",
   });
+
   useEffect(() => {
     productService
       .findPageRequest(queryParams.page, queryParams.name)
@@ -49,11 +50,11 @@ export default function Catalog() {
             <CatalogCard key={product.id} product={product} />
           ))}
         </div>
-        {!isLastPage &&
+        {!isLastPage && (
           <div onClick={handleNextPageClick}>
             <ButtonNextPage />
           </div>
-        }
+        )}
       </section>
     </main>
   );
