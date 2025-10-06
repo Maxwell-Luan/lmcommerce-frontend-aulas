@@ -12,8 +12,14 @@ import type { QueryParams } from "../../../models/queryParams";
 import * as productService from "../../../services/product-service";
 import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
+import DialogInfo from "../../../components/DialogInfo";
 
 export default function ProductListing() {
+  const [dialogInfoData, setDialogInfoData] = useState({
+    visible: false,
+    message: "Operação com sucesso!",
+  });
+
   const [isLastPage, setIsLastPage] = useState(false);
 
   const [products, setProducts] = useState<ProductDTO[]>([]);
@@ -40,6 +46,14 @@ export default function ProductListing() {
 
   function handleNextPageClick() {
     setQueryParams({ ...queryParams, page: queryParams.page + 1 });
+  }
+
+  function handleDeleteClick() {
+    setDialogInfoData({...dialogInfoData, visible: true})
+  }
+
+  function handleDialogInfoClose(){
+    setDialogInfoData({...dialogInfoData, visible: false})
   }
 
   return (
@@ -88,17 +102,20 @@ export default function ProductListing() {
                     className="dsc-product-listing-btn"
                     src={deleteIcon}
                     alt="Deletar"
+                    onClick={handleDeleteClick}
                   />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {
-        !isLastPage && 
-        <ButtonNextPage onNextPage={handleNextPageClick} />
-        }
+        {!isLastPage && <ButtonNextPage onNextPage={handleNextPageClick} />}
       </section>
+      {
+      dialogInfoData.visible && 
+      <DialogInfo message={dialogInfoData.message}
+      onDialogClose={handleDialogInfoClose}/>
+      }
     </main>
   );
 }
