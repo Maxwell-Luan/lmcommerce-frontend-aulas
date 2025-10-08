@@ -358,6 +358,10 @@ a:hover {
   grid-gap: 20px;
 }
 
+.dsc-dialog-btn{
+  width: 100%;
+}
+
 @media (min-width: 768px) {
   .dsc-tb768 {
     display: table-cell;
