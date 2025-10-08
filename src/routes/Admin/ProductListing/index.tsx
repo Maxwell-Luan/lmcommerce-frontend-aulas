@@ -13,11 +13,17 @@ import * as productService from "../../../services/product-service";
 import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
 import DialogInfo from "../../../components/DialogInfo";
+import DialogConfirmation from "../../../components/DialogConfirmation";
 
 export default function ProductListing() {
   const [dialogInfoData, setDialogInfoData] = useState({
     visible: false,
     message: "Operação com sucesso!",
+  });
+
+  const [dialogConfirmationData, setDialogConfirmationData] = useState({
+    visible: false,
+    message: "Tem certeza",
   });
 
   const [isLastPage, setIsLastPage] = useState(false);
@@ -49,11 +55,16 @@ export default function ProductListing() {
   }
 
   function handleDeleteClick() {
-    setDialogInfoData({...dialogInfoData, visible: true})
+    setDialogConfirmationData({...dialogConfirmationData, visible: true})
   }
 
   function handleDialogInfoClose(){
     setDialogInfoData({...dialogInfoData, visible: false})
+  }
+
+  function handleDialogConfirmationAnswer(answer : boolean){
+    console.log("Reposta ", answer)
+    setDialogConfirmationData({...dialogConfirmationData, visible: false})
   }
 
   return (
@@ -115,6 +126,12 @@ export default function ProductListing() {
       dialogInfoData.visible && 
       <DialogInfo message={dialogInfoData.message}
       onDialogClose={handleDialogInfoClose}/>
+      }
+
+      {
+      dialogConfirmationData.visible && 
+      <DialogConfirmation message={dialogConfirmationData.message}
+      onDialogAnswer={handleDialogConfirmationAnswer}/>
       }
     </main>
   );
