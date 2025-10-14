@@ -14,8 +14,13 @@ import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
 import DialogInfo from "../../../components/DialogInfo";
 import DialogConfirmation from "../../../components/DialogConfirmation";
+import ButtonInverse from "../../../components/ButtonInverse";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductListing() {
+
+  const navigate = useNavigate();
+
   const [dialogInfoData, setDialogInfoData] = useState({
     visible: false,
     message: "Operação com sucesso!",
@@ -46,6 +51,10 @@ export default function ProductListing() {
       });
   }, [queryParams]);
 
+  function handleNewProductClick(){
+    navigate("/admin/products/create")
+  }
+
   function handleSearch(searchText: string) {
     setProducts([]);
     setQueryParams({ page: 0, name: searchText });
@@ -56,28 +65,34 @@ export default function ProductListing() {
   }
 
   function handleDeleteClick(productId: number) {
-    setDialogConfirmationData({...dialogConfirmationData, id: productId, visible: true})
+    setDialogConfirmationData({
+      ...dialogConfirmationData,
+      id: productId,
+      visible: true,
+    });
   }
 
-  function handleDialogInfoClose(){
-    setDialogInfoData({...dialogInfoData, visible: false})
+  function handleDialogInfoClose() {
+    setDialogInfoData({ ...dialogInfoData, visible: false });
   }
 
-  function handleDialogConfirmationAnswer(answer : boolean, productId: number){
-    if(answer){
-      productService.deleteById(productId)
-      .then(() => {
-        setProducts([]);
-        setQueryParams({...queryParams, page: 0})
-      }).catch(error => {
-        setDialogInfoData({
-          visible: true,
-          message: error.response.data.error
+  function handleDialogConfirmationAnswer(answer: boolean, productId: number) {
+    if (answer) {
+      productService
+        .deleteById(productId)
+        .then(() => {
+          setProducts([]);
+          setQueryParams({ ...queryParams, page: 0 });
         })
-      })
+        .catch((error) => {
+          setDialogInfoData({
+            visible: true,
+            message: error.response.data.error,
+          });
+        });
     }
-    
-    setDialogConfirmationData({...dialogConfirmationData, visible: false})
+
+    setDialogConfirmationData({ ...dialogConfirmationData, visible: false });
   }
 
   return (
@@ -85,7 +100,10 @@ export default function ProductListing() {
       <section id="product-listing-section" className="dsc-container">
         <h2 className="dsc-section-title dsc-mb20">Cadastro de produtos</h2>
         <div className="dsc-btn-page-container">
-          <div className="dsc-btn dsc-btn-white dsc-mb20">Novo</div>
+            <div className="dsc-btn dsc-btn-white dsc-mb20" 
+            onClick={handleNewProductClick}>
+              <ButtonInverse text="Novo" />
+            </div>
         </div>
 
         <SearchBar onSearch={handleSearch} />
@@ -135,19 +153,20 @@ export default function ProductListing() {
         </table>
         {!isLastPage && <ButtonNextPage onNextPage={handleNextPageClick} />}
       </section>
-      {
-      dialogInfoData.visible && 
-      <DialogInfo message={dialogInfoData.message}
-      onDialogClose={handleDialogInfoClose}/>
-      }
+      {dialogInfoData.visible && (
+        <DialogInfo
+          message={dialogInfoData.message}
+          onDialogClose={handleDialogInfoClose}
+        />
+      )}
 
-      {
-      dialogConfirmationData.visible && 
-      <DialogConfirmation 
-      id={dialogConfirmationData.id}
-      message={dialogConfirmationData.message}
-      onDialogAnswer={handleDialogConfirmationAnswer}/>
-      }
+      {dialogConfirmationData.visible && (
+        <DialogConfirmation
+          id={dialogConfirmationData.id}
+          message={dialogConfirmationData.message}
+          onDialogAnswer={handleDialogConfirmationAnswer}
+        />
+      )}
     </main>
   );
 }
