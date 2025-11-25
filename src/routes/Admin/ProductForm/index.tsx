@@ -3,14 +3,13 @@ import "./styles.css";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import FormInput from "../../../components/FormInput";
-import * as forms from '../../../utils/forms';
-import * as productService from '../../../services/product-service';
+import * as forms from "../../../utils/forms";
+import * as productService from "../../../services/product-service";
 
 export default function ProductForm() {
-
   const params = useParams();
 
-  const isEditing = params.productId !== 'create';
+  const isEditing = params.productId !== "create";
 
   const [formData, setFormData] = useState<any>({
     name: {
@@ -26,6 +25,10 @@ export default function ProductForm() {
       name: "price",
       type: "number",
       placeholder: "Preço",
+      validation: function (value: any) {
+        return Number(value) > 0;
+      },
+      message: "Favor informar um valor positivo",
     },
     imgUrl: {
       value: "",
@@ -37,19 +40,23 @@ export default function ProductForm() {
   });
 
   useEffect(() => {
-    if(isEditing){
-      productService.findById(Number(params.productId)).then(response => {
-        const newFormData = forms.updateAll(formData, response.data)
+
+    const obj = forms.validate(formData, "price");
+    console.log(obj);
+
+    if (isEditing) {
+      productService.findById(Number(params.productId)).then((response) => {
+        const newFormData = forms.updateAll(formData, response.data);
         setFormData(newFormData);
-      })
+      });
     }
-  },[])
+  }, []);
 
   function handleInputChange(event: any) {
-      const value = event.target.value;
-      const name = event.target.name;
-      setFormData(forms.update(formData, name, value));
-    }
+    const value = event.target.value;
+    const name = event.target.name;
+    setFormData(forms.update(formData, name, value));
+  }
 
   return (
     <main>
@@ -83,7 +90,7 @@ export default function ProductForm() {
 
             <div className="dsc-product-form-buttons">
               <Link to="/admin/products" className="dsc-btn dsc-btn-white">
-                  Cancelar
+                Cancelar
               </Link>
               <button type="submit" className="dsc-btn dsc-btn-blue">
                 Salvar
