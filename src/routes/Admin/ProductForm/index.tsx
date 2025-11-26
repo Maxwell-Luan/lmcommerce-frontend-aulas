@@ -41,6 +41,9 @@ export default function ProductForm() {
 
   useEffect(() => {
 
+    const result = forms.toDirty(formData, "price");
+    console.log(result);
+
     if (isEditing) {
       productService.findById(Number(params.productId)).then((response) => {
         const newFormData = forms.updateAll(formData, response.data);
@@ -57,6 +60,11 @@ export default function ProductForm() {
     setFormData(dataValidated);
   }
 
+  function handleTurnDirty(name: string){
+    const newFormData = forms.toDirty(formData, name);
+    setFormData(newFormData);
+  }
+
   return (
     <main>
       <section id="product-form-section" className="dsc-container">
@@ -68,6 +76,7 @@ export default function ProductForm() {
                 <FormInput
                   {...formData.name}
                   className="dsc-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
                 <div className="dsc-form-error">{formData.name.message}</div>
@@ -76,6 +85,7 @@ export default function ProductForm() {
                 <FormInput
                   {...formData.price}
                   className="dsc-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
                 <div className="dsc-form-error">{formData.price.message}</div>
@@ -84,6 +94,7 @@ export default function ProductForm() {
                 <FormInput
                   {...formData.imgUrl}
                   className="dsc-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
               </div>
