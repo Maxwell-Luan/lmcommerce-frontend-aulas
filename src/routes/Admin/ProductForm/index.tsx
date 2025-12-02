@@ -5,12 +5,17 @@ import { useEffect, useState } from "react";
 import FormInput from "../../../components/FormInput";
 import * as forms from "../../../utils/forms";
 import * as productService from "../../../services/product-service";
+import * as categoryService from "../../../services/category-service";
 import FormTextArea from "../../../components/FormTextArea";
+import Select from "react-select";
+import type { CategoryDTO } from "../../../models/category";
 
 export default function ProductForm() {
   const params = useParams();
 
   const isEditing = params.productId !== "create";
+
+  const [categories, setCategories] = useState<CategoryDTO[]>([]);
 
   const [formData, setFormData] = useState<any>({
     name: {
@@ -54,6 +59,12 @@ export default function ProductForm() {
       message: "A descrição deve ter no mínimo 10 caracteres"
     }
   });
+
+  useEffect(() => {
+    categoryService.findAllRequest().then(response => {
+      setCategories(response.data)
+    })
+  },[])
 
   useEffect(() => {
     if (isEditing) {
@@ -106,6 +117,14 @@ export default function ProductForm() {
                   onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
+              </div>
+              <Select
+              isMulti
+              getOptionLabel={(obj) => obj.name}
+              getOptionValue={(obj) => String(obj.id)}
+              options={categories} />
+              <div>
+                
               </div>
               <div>
                 <FormTextArea
