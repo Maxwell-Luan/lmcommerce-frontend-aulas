@@ -18,6 +18,10 @@ export default function ProductForm() {
       name: "name",
       type: "text",
       placeholder: "Nome",
+      validation: function(value: string){
+        return /^.{3,80}$/.test(value);
+      },
+      message: "Favor informar um nome de 3 a 80 caracteres"
     },
     price: {
       value: "",
@@ -49,11 +53,13 @@ export default function ProductForm() {
   }, []);
 
   function handleInputChange(event: any) {
-    const value = event.target.value;
-    const name = event.target.name;
-    const dataUpdated = forms.update(formData, name, value);
-    const dataValidated = forms.validate(dataUpdated, name);
-    setFormData(dataValidated);
+    const result = forms.updateAndValidate(formData, event.target.name, event.target.value)
+    setFormData(result);
+  }
+
+  function handleTurnDirty(name: string){
+    const newFormData = forms.dirtyAndValidate(formData, name);
+    setFormData(newFormData);
   }
 
   return (
@@ -67,14 +73,16 @@ export default function ProductForm() {
                 <FormInput
                   {...formData.name}
                   className="dsc-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
-                <div>{formData.name.message}</div>
+                <div className="dsc-form-error">{formData.name.message}</div>
               </div>
               <div>
                 <FormInput
                   {...formData.price}
                   className="dsc-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
                 <div className="dsc-form-error">{formData.price.message}</div>
@@ -83,8 +91,10 @@ export default function ProductForm() {
                 <FormInput
                   {...formData.imgUrl}
                   className="dsc-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
+                <div className="dsc-form-error">{formData.imgUrl.message}</div>
               </div>
             </div>
 

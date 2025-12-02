@@ -1,0 +1,52 @@
+[33m5cea8e3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: reset: moving to origin/main
+[33m93e81e6[m HEAD@{1}: revert: Revert "Resolve merge conflicts"
+[33m5cea8e3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{2}: commit (merge): Resolve merge conflicts
+[33m513a96e[m HEAD@{3}: commit: Error CSS
+[33m3b635a0[m HEAD@{4}: commit: forms updateAll
+[33m965e1d7[m HEAD@{5}: commit: Adding formData to productForm route
+[33m6f9f686[m HEAD@{6}: commit: Creating products/create route
+[33md1e10e9[m HEAD@{7}: commit: forms toValues
+[33mc5512b8[m HEAD@{8}: commit: forms update
+[33mf60da3b[m HEAD@{9}: commit: Custom FormInput
+[33m83d5b19[m HEAD@{10}: commit: Delete finish
+[33mc2b53c4[m HEAD@{11}: commit: Confirmation dialog modal
+[33mf25a457[m HEAD@{12}: commit: Dialog modal info
+[33m4c348f1[m HEAD@{13}: commit: Product listing controls
+[33m1816665[m HEAD@{14}: commit: Dynamic product listing
+[33mf9d45ee[m HEAD@{15}: commit: Product CRUD static layout
+[33mf674285[m HEAD@{16}: commit (amend): Navlink isActive
+[33m9960b21[m HEAD@{17}: commit: Admin area routes
+[33m89b5618[m HEAD@{18}: commit: Adding productListing and update product routes
+[33mea9f0ab[m HEAD@{19}: commit: Place order
+[33m7dc09b2[m HEAD@{20}: commit (amend): Confirmation
+[33m49fa855[m HEAD@{21}: commit: Confirmation
+[33mf55b3c6[m HEAD@{22}: commit: LoggedUser
+[33ma04fbdb[m HEAD@{23}: commit: Context Token Payload
+[33m5d2586f[m HEAD@{24}: commit: Access control route level
+[33m6dc60fc[m HEAD@{25}: commit: hasAnyRoles
+[33mc5734b8[m HEAD@{26}: commit: PrivateRoute
+[33mc558fd5[m HEAD@{27}: commit: isAuthenticated
+[33mf003d35[m HEAD@{28}: commit: Redirecting outside React component
+[33m25c6dd5[m HEAD@{29}: commit: requestBackend update withCredentials
+[33m1ed871e[m HEAD@{30}: commit: Getting user
+[33m16f606c[m HEAD@{31}: commit: Admin page layout
+[33m82fb228[m HEAD@{32}: commit: Login form, login request
+[33m12b64ae[m HEAD@{33}: commit: Context cart count
+[33mf9cab2d[m HEAD@{34}: commit: Catalog next page
+[33mdbc55d3[m HEAD@{35}: commit: Searchbar onSearch event
+[33mca0d198[m HEAD@{36}: commit: Increase / decrease cart items
+[33m4f8ee5c[m HEAD@{37}: commit: Cart clear
+[33mdb8e7bc[m HEAD@{38}: commit: Cart save/get
+[33mb131a8e[m HEAD@{39}: commit: Cart mock data
+[33mfd05d8c[m HEAD@{40}: commit: Catch request error
+[33m7498bfc[m HEAD@{41}: commit: First back end requests
+[33mf706a2e[m HEAD@{42}: commit: Not Found Route
+[33m4c38ec6[m HEAD@{43}: commit: Links, catalog, product details
+[33m5f2ab42[m HEAD@{44}: rebase (abort): updating HEAD
+[33m7f081d1[m HEAD@{45}: pull origin main --rebase (start): checkout 7f081d1ea56a7dd6f762317e7ee295352ba7464e
+[33m5f2ab42[m HEAD@{46}: commit: Adding React Router DOM
+[33ma85a808[m HEAD@{47}: commit: Criando e adicionando a pasta de routes
+[33md1f32be[m HEAD@{48}: commit: Primeiro teste de renderização com React
+[33m6fa3488[m HEAD@{49}: commit: Limpeza do Projeto
+[33m95b8e16[m HEAD@{50}: Branch: renamed refs/heads/master to refs/heads/main
+[33m95b8e16[m HEAD@{52}: commit (initial): Projeto criado
