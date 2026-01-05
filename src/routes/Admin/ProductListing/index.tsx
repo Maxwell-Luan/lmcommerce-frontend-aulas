@@ -64,6 +64,10 @@ export default function ProductListing() {
     setQueryParams({ ...queryParams, page: queryParams.page + 1 });
   }
 
+  function handleUpdateClick(productId: number){
+    navigate(`/admin/products/${productId}`)
+  }
+
   function handleDeleteClick(productId: number) {
     setDialogConfirmationData({
       ...dialogConfirmationData,
@@ -137,6 +141,7 @@ export default function ProductListing() {
                     className="dsc-product-listing-btn"
                     src={editIcon}
                     alt="Editar"
+                    onClick={() => handleUpdateClick(product.id)}
                   />
                 </td>
                 <td>
