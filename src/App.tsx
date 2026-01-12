@@ -1,8 +1,8 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ContextCartCount } from "./utils/context-cart";
-import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
-import { history } from "./utils/history";
+
+
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ContextToken } from "./utils/context-token";
 
@@ -43,7 +43,7 @@ export default function App() {
       <ContextCartCount.Provider
         value={{ contextCartCount, setContextCartCount }}
       >
-        <HistoryRouter history={history}>
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<ClientHome />}>
               <Route index element={<Catalog />} />
@@ -69,7 +69,7 @@ export default function App() {
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
-        </HistoryRouter>
+        </BrowserRouter>
       </ContextCartCount.Provider>
     </ContextToken.Provider>
   );
