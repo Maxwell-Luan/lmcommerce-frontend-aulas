@@ -42,6 +42,13 @@ export default function Cart() {
       cartService.clearCart();
       setContextCartCount(0);
       navigate(`/confirmation/${response.data.id}`);
+    }).catch(error => {
+      if(error.response.status === 401){
+        navigate("/login");
+      }
+      else{
+        console.log(error);
+      }
     })
   }
 
