@@ -1,20 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import QueryString from "qs";
-import type {
-  AccessTokenPayloadDTO,
-  CredentialsDTO,
-  RoleEnum,
-} from "../models/auth";
-import { CLIENT_ID, CLIENT_SECRET } from "../utils/system";
-import type { AxiosRequestConfig } from "axios";
-import { requestBackend } from "../utils/requests";
+import type {AccessTokenPayloadDTO, CredentialsDTO, RoleEnum} from "../models/auth";
 import * as accessTokenRepository from "../localStorage/access-token-repository";
 import jwtDecode from "jwt-decode";
+import axios from "axios";
 
 export function loginRequest(loginData: CredentialsDTO) {
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded",
-    Authorization: "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
   };
 
   const requestBody = QueryString.stringify({
@@ -22,14 +15,13 @@ export function loginRequest(loginData: CredentialsDTO) {
     grant_type: "password",
   });
 
-  const config: AxiosRequestConfig = {
+  return axios({
     method: "POST",
-    url: "/oauth/token",
+    url: "/.netlify/functions/login",
     data: requestBody,
     headers,
-  };
-
-  return requestBackend(config);
+    withCredentials: false
+  });
 }
 
 export function logout() {
